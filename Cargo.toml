@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "palloc",
+]
+resolver = "2"
+
+[profile.bench]
+lto = true
+codegen-units = 1
+incremental = false
