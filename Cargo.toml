@@ -1,8 +1,8 @@
 [workspace]
 members = [
-    "palloc",
+    "s2n-palloc",
 ]
-resolver = "2"
+resolver = "3"
 
 [profile.bench]
 lto = true
