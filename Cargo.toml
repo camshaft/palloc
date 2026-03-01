@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "s2n-palloc",
+    "seqpool",
 ]
 resolver = "3"
 
