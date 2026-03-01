@@ -3,3 +3,15 @@ name = "seqpool"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+criterion = { version = "0.8", features = ["html_reports"] }
+tikv-jemallocator = "0.6"
+mimalloc = "0.1"
+
+[[bench]]
+name = "pool"
+harness = false
