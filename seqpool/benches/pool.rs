@@ -36,7 +36,7 @@ fn bench_single_thread(c: &mut Criterion) {
         let pool = Pool::new(PACKET_LAYOUT, CAPACITY);
         b.iter(|| {
             let slot = black_box(pool.alloc().unwrap());
-            drop(slot);
+            pool.free(slot);
         });
     });
 
@@ -89,7 +89,7 @@ fn bench_multi_thread(c: &mut Criterion) {
                             barrier.wait();
                             for _ in 0..per_thread {
                                 let slot = black_box(pool.alloc().unwrap());
-                                drop(slot);
+                                pool.free(slot);
                             }
                         })
                     })
@@ -186,12 +186,13 @@ fn bench_cross_thread(c: &mut Criterion) {
         use std::sync::mpsc;
 
         let pool = Pool::new(PACKET_LAYOUT, CAPACITY);
+        let pool_consumer = pool.clone();
         let (tx, rx) = mpsc::sync_channel::<seqpool::Slot>(CAPACITY);
 
-        // Consumer runs in a dedicated thread.
+        // Consumer runs in a dedicated thread; needs a pool handle to free.
         let consumer = thread::spawn(move || {
             while let Ok(slot) = rx.recv() {
-                drop(black_box(slot));
+                pool_consumer.free(black_box(slot));
             }
         });
 
