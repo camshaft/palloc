@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "seqpool",
+]
+resolver = "3"
+
+[profile.bench]
+lto = true
+codegen-units = 1
+incremental = false

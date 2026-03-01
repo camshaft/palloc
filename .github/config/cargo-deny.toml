@@ -1,0 +1,19 @@
+[advisories]
+yanked = "deny"
+
+[bans]
+multiple-versions = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+
+[licenses]
+confidence-threshold = 0.90
+allow = [
+    "Apache-2.0",
+    "MIT",
+    "Unicode-3.0",
+    "BSD-3-Clause",
+    "Zlib",
+]
